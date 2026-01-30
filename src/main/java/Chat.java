@@ -10,8 +10,12 @@ public class Chat {
                 " CCCCC  H   H  A    A    T  ";
         System.out.println("Hello I'm \n" + logo);
         System.out.println("What can I do for you?\n");
+<<<<<<< HEAD
         ArrayList<Task> toDoList = new ArrayList<Task>();
         int size = 0;
+=======
+        ArrayList<String> toDoList = new ArrayList<String>();
+>>>>>>> 69c778e6c52ffc5df1773b8b5413ea9960ef0d4a
         String input;
         Scanner in = new Scanner(System.in);
         while (true) {
@@ -22,6 +26,7 @@ public class Chat {
             }
             else if (input.equals("list")) {
                 for (int i = 0; i < toDoList.size(); i++) {
+<<<<<<< HEAD
                     System.out.println(Integer.toString(i+1) + ". [" + toDoList.get(i).getStatusIcon() + "] " + toDoList.get(i).description);
                 }
             }
@@ -51,6 +56,13 @@ public class Chat {
                 Task newTask = new Task(input);
                 toDoList.add(newTask);
                 size ++;
+=======
+                    System.out.println(Integer.toString(i+1) + ". " + toDoList.get(i));
+                }
+            }
+            else {
+                toDoList.add(input);
+>>>>>>> 69c778e6c52ffc5df1773b8b5413ea9960ef0d4a
                 System.out.println("Added: " + input);
             }
             System.out.println("----------------------------------------");
