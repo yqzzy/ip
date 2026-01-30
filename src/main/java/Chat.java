@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chat {
@@ -9,13 +10,25 @@ public class Chat {
                 " CCCCC  H   H  A    A    T  ";
         System.out.println("Hello I'm \n" + logo);
         System.out.println("What can I do for you?\n");
+        ArrayList<String> toDoList = new ArrayList<String>();
         String input;
         Scanner in = new Scanner(System.in);
-        do {
+        while (true) {
             input =  in.nextLine();
-            System.out.println(input);
+            if (input.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!\n");
+                break;
+            }
+            else if (input.equals("list")) {
+                for (int i = 0; i < toDoList.size(); i++) {
+                    System.out.println(Integer.toString(i+1) + ". " + toDoList.get(i));
+                }
+            }
+            else {
+                toDoList.add(input);
+                System.out.println("Added: " + input);
+            }
             System.out.println("----------------------------------------");
-        } while (!"bye".equals(input));
-        System.out.println("Bye. Hope to see you again soon!\n");
+        }
     }
 }
