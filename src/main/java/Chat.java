@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chat {
@@ -9,13 +10,50 @@ public class Chat {
                 " CCCCC  H   H  A    A    T  ";
         System.out.println("Hello I'm \n" + logo);
         System.out.println("What can I do for you?\n");
+        ArrayList<Task> toDoList = new ArrayList<Task>();
+        int size = 0;
         String input;
         Scanner in = new Scanner(System.in);
-        do {
+        while (true) {
             input =  in.nextLine();
-            System.out.println(input);
+            if (input.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!\n");
+                break;
+            }
+            else if (input.equals("list")) {
+                for (int i = 0; i < toDoList.size(); i++) {
+                    System.out.println(Integer.toString(i+1) + ". [" + toDoList.get(i).getStatusIcon() + "] " + toDoList.get(i).description);
+                }
+            }
+            else if (input.contains("unmark ")) {
+                String taskDesc = input.substring(input.indexOf("unmark") + 7);
+                for (Task currTask : toDoList) {
+                    if (currTask.description.equals(taskDesc)) {
+                        currTask.markTask(false);
+                        System.out.println("Not nice, I've unmarked this task: ");
+                        System.out.println("[ ] " + currTask.description);
+                        break;
+                    }
+                }
+            }
+            else if (input.contains("mark ")) {
+                String taskDesc = input.substring(input.indexOf("mark")+5);
+                for (Task currTask : toDoList) {
+                    if (currTask.description.equals(taskDesc)) {
+                        currTask.markTask(true);
+                        System.out.println("Nice, I've marked this task done: ");
+                        System.out.println("[X] " + currTask.description);
+                        break;
+                    }
+                }
+            }
+            else {
+                Task newTask = new Task(input);
+                toDoList.add(newTask);
+                size ++;
+                System.out.println("Added: " + input);
+            }
             System.out.println("----------------------------------------");
-        } while (!"bye".equals(input));
-        System.out.println("Bye. Hope to see you again soon!\n");
+        }
     }
 }
