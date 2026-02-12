@@ -18,8 +18,12 @@ public class Chat {
         printWelcome();
 
         while (isActive) {
-            String input =  scanner.nextLine();
-            handleCommand(input, taskList);
+            try {
+                String input = scanner.nextLine();
+                handleCommand(input, taskList);
+            } catch (ChatException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
             System.out.println(DIVIDER);
         }
 
@@ -31,7 +35,8 @@ public class Chat {
         System.out.println("What can I do for you?\n");
     }
 
-    private static void handleCommand(String input, ArrayList<Task> taskList) {
+    private static void handleCommand(String input, ArrayList<Task> taskList) throws ChatException {
+
         if (input.equals("bye")) {
             System.out.println("Bye. Hope to see you again soon!\n");
             isActive = false;
@@ -40,13 +45,16 @@ public class Chat {
             printList(taskList);
         }
         else if (input.startsWith("mark ")) {
-            markOrUnmarkTask();Task(taskList, input.substring(5), true);
+            markOrUnmarkTask(taskList, input.substring(5), true);
         }
         else if (input.startsWith("unmark ")) {
             markOrUnmarkTask(taskList, input.substring(7), false);
         }
-        else {
+        else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")){
             createAndAddTask(input, taskList);
+        }
+        else {
+            throw new ChatException("Invalid command. Valid command starts with: bye, list, mark, unmark, todo, deadline, event");
         }
 
     }
@@ -70,11 +78,10 @@ public class Chat {
         return null;
     }
 
-    private static void markOrUnmarkTask(ArrayList<Task> taskList, String description, boolean isMarked) {
+    private static void markOrUnmarkTask(ArrayList<Task> taskList, String description, boolean isMarked) throws ChatException {
         Task task = findTaskByDescription(taskList, description);
         if (task == null) {
-            System.out.println("Task not found.");
-            return;
+            throw new ChatException("Task not found. Enter \"list\" to see list of tasks.");
         }
 
         task.markTask(isMarked);
@@ -86,12 +93,11 @@ public class Chat {
         System.out.println(task);
     }
 
-    private static void createAndAddTask(String input, ArrayList<Task> taskList) {
+    private static void createAndAddTask(String input, ArrayList<Task> taskList) throws ChatException {
         String[] inputParts = input.split(" ", 2);
 
         if (inputParts.length < 2) {
-            System.out.println("Invalid add task format.");
-            return;
+            throw new ChatException("Task description cannot be empty.");
         }
 
         String taskType = inputParts[0];
@@ -105,6 +111,9 @@ public class Chat {
             break;
         }
         case "deadline": {
+            if (! taskDetails.contains("/by")) {
+                throw new ChatException("Invalid deadline format. Use \"/by <deadline>\".");
+            }
             String[] subParts = taskDetails.split(" /by ", 2);
             String description = subParts[0];
             String by = subParts[1];
@@ -112,6 +121,9 @@ public class Chat {
             break;
         }
         case "event": {
+            if (!(taskDetails.contains("/from") && taskDetails.contains("/to"))) {
+                throw new ChatException("Invalid event format. Use \"/from <start date> /to <end date>\".");
+            }
             String[] subParts = taskDetails.split(" /from ", 2);
             String description = subParts[0];
             String[] subSubParts = subParts[1].split(" /to ", 2);
