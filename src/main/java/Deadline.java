@@ -6,6 +6,10 @@ public class Deadline extends Todo{
         this.by = by;
     }
 
+    public String getBy() {
+        return by;
+    }
+
     @Override
     public String getTaskIcon() {
         return "D";
