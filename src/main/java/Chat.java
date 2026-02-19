@@ -53,6 +53,9 @@ public class Chat {
         else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")){
             createAndAddTask(input, taskList);
         }
+        else if (input.startsWith("delete")) {
+            deleteTask(taskList, input);
+        }
         else {
             throw new ChatException("Invalid command. Valid command starts with: bye, list, mark, unmark, todo, deadline, event");
         }
@@ -137,5 +140,21 @@ public class Chat {
         taskList.add(newTask);
         System.out.println("Added: " + newTask);
         System.out.printf("Now you have %d tasks in the list%n", taskList.size());
+    }
+
+    private static void deleteTask(ArrayList<Task> taskList, String input) throws ChatException {
+        String[] inputParts = input.split(" ", 2);
+        try {
+            int number = Integer.parseInt(inputParts[1]);
+            if (number > taskList.size()) {
+                throw new ChatException("Number must be less than or equal to " + taskList.size());
+            }
+            Task removedTask = taskList.remove(number);
+            System.out.println("Okay, this task is removed: ");
+            System.out.println(removedTask);
+            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Enter number of the task to delete");
+        }
     }
 }
