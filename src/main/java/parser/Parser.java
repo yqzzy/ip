@@ -24,8 +24,11 @@ public class Parser {
         else if (input.startsWith("delete")) {
             return new DeleteTaskCommand(input);
         }
+        else if (input.startsWith("find")) {
+            return new FindTaskCommand(input.substring(5));
+        }
         else {
-            throw new ChatException("Invalid command. Valid command starts with: bye, list, mark, unmark, todo, deadline, event, delete");
+            throw new ChatException("Invalid command. Valid command starts with: bye, list, mark, unmark, todo, deadline, event, delete, find");
         }
     }
 
