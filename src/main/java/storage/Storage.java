@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,8 +46,8 @@ public class Storage {
             break;
         }
         case "E": {
-            String from = taskParts[3];
-            String to = taskParts[4];
+            LocalDate from = LocalDate.parse(taskParts[3]);
+            LocalDate to = LocalDate.parse(taskParts[4]);
             task = new Event(taskDescription, from, to);
             break;
         }

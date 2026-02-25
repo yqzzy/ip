@@ -5,6 +5,9 @@ import task.*;
 import ui.Ui;
 import storage.Storage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class AddTaskCommand extends Command {
     private String input;
 
@@ -46,9 +49,13 @@ public class AddTaskCommand extends Command {
             String[] subParts = taskDetails.split(" /from ", 2);
             String description = subParts[0];
             String[] subSubParts = subParts[1].split(" /to ", 2);
-            String to = subSubParts[0];
-            String from = subSubParts[1];
-            newTask = new Event(description, to, from);
+            try {
+                LocalDate to = LocalDate.parse(subSubParts[0]);
+                LocalDate from = LocalDate.parse(subSubParts[1]);
+                newTask = new Event(description, to, from);
+            } catch (DateTimeParseException e) {
+                throw new ChatException("Dates must be in YYYY-MM-DD format (e.g., 2026-02-25).");
+            }
             break;
         }
         }

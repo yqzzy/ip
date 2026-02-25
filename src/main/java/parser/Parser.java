@@ -27,7 +27,6 @@ public class Parser {
         else {
             throw new ChatException("Invalid command. Valid command starts with: bye, list, mark, unmark, todo, deadline, event, delete");
         }
-
     }
 
 }

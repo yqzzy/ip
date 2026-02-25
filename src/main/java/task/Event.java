@@ -1,20 +1,23 @@
 package task;
 
-public class Event extends Task {
-    protected String start;
-    protected String end;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String start, String end) {
+public class Event extends Task {
+    protected LocalDate start;
+    protected LocalDate end;
+
+    public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start= start;
         this.end= end;
     }
 
-    public String getStart() {
+    public LocalDate getStart() {
         return start;
     }
 
-    public String getEnd() {
+    public LocalDate getEnd() {
         return end;
     }
 
@@ -25,6 +28,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" (from: %s to: %s) ", start, end);
+        String formattedStart = start.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String formattedEnd = end.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return super.toString() + String.format(" (from: %s to: %s) ", formattedStart, formattedEnd);
     }
 }
