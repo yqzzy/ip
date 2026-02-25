@@ -3,6 +3,10 @@ package task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task that occurs within a specific time frame,
+ * defined by a start time and an end time.
+ */
 public class Event extends Task {
     protected LocalDate start;
     protected LocalDate end;

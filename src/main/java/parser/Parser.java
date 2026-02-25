@@ -3,6 +3,10 @@ package parser;
 import command.*;
 import exception.ChatException;
 
+/**
+ * Processes user input strings and converts them into executable Command objects.
+ * Handles the logic for identifying command types and extracting arguments.
+ */
 public class Parser {
     public Command parse(String input) throws ChatException {
 

@@ -11,6 +11,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles all file I/O operations for the application.
+ * Responsible for loading task data from disk and saving current tasks to a text file.
+ */
 public class Storage {
     private String filePath;
 
@@ -34,7 +38,13 @@ public class Storage {
         }
     }
 
-    // helper method for loadFile()
+    /**
+     * Parses a raw line from the save file into a Task object.
+     * * @param taskParts The array of strings split from the file line.
+     * @param taskType The encoded type of the task (T, D, or E).
+     * @return The specific Task object (Todo, Deadline, or Event).
+     * @throws ChatException If the task type is unrecognized or data is missing.
+     */
     private Task getTask(String[] taskParts, String taskType) throws ChatException {
         String taskStatus = taskParts[1];
         String taskDescription = taskParts[2];
@@ -77,6 +87,14 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads task data from the hard disk.
+     * Parses the text file and converts each line into the appropriate Task object.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws FileNotFoundException If the data file does not exist.
+     * @throws ChatException If the file format is corrupted or invalid.
+     */
     public ArrayList<Task> loadFile() throws FileNotFoundException, ChatException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);

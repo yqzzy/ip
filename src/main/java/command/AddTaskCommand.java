@@ -8,6 +8,10 @@ import storage.Storage;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A command that handles the creation and addition of new tasks (Todo, Deadline, Event)
+ * to the task list based on user input.
+ */
 public class AddTaskCommand extends Command {
     private String input;
 

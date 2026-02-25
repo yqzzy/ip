@@ -14,6 +14,10 @@ public class Chat {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * The main entry point for the Chat application.
+     * Coordinates the user interface, storage, and command execution loop.
+     */
     public Chat(String filePath) throws ChatException, FileNotFoundException {
         ui = new Ui();
         storage = new Storage(filePath);
