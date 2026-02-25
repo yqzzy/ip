@@ -9,6 +9,9 @@ import storage.Storage;
 public class DeleteTaskCommand extends Command {
     private String input;
 
+    /**
+     * A command that removes a task from the task list using a specific index provided by the user.
+     */
     public DeleteTaskCommand(String input) {
         this.input = input;
     }

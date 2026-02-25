@@ -1,9 +1,11 @@
 package task;
 
-import command.PrintListCommand;
-
 import java.util.ArrayList;
 
+/**
+ * Manages the collection of tasks in memory.
+ * Provides high-level operations like adding, deleting, and searching for tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 

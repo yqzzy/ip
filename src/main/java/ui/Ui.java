@@ -2,6 +2,11 @@ package ui;
 
 import java.util.Scanner;
 
+/**
+ * Handles all interactions with the user.
+ * Responsible for reading input from the console and displaying
+ * messages, errors, and formatting (like dividers) to the user.
+ */
 public class Ui {
     private static final String DIVIDER = "----------------------------------------";
     private static final String LOGO = """
