@@ -28,14 +28,4 @@ public class TaskList {
     public Task getTask(int index) {
         return taskList.get(index);
     }
-
-    public Task findTaskByDescription(String description) {
-        for (Task task : taskList) {
-            if (task.getDescription().equals(description)) {
-                return task;
-            }
-        }
-        return null;
-    }
-
 }

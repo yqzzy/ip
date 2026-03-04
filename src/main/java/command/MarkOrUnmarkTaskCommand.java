@@ -7,26 +7,32 @@ import ui.Ui;
 import storage.Storage;
 
 public class MarkOrUnmarkTaskCommand extends Command {
-    private String description;
-    private boolean isMarked;
+    private int index;
+    private Boolean isMarked;
 
-    public MarkOrUnmarkTaskCommand(String description, boolean isMarked) {
-        this.description = description;
+    public MarkOrUnmarkTaskCommand(int index, Boolean isMarked) {
+        this.index = index;
         this.isMarked = isMarked;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ChatException {
-        Task task = taskList.findTaskByDescription(description);
-        if (task == null) {
-            throw new ChatException("task.Task not found. Enter \"list\" to see list of tasks.");
+    /**
+     * A command that marks or unmarks a task from the task list using a specific index provided by the user.
+     */
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        try {
+            if (index < 0 || index > taskList.getSize()-1) {
+                throw new ChatException("Number must be less than or equal to " + taskList.getSize());
+            }
+            Task task = taskList.getTask(index);
+            task.markTask(isMarked);
+            if (isMarked) {
+                ui.showMessage("Nice, I've marked this task done:");
+            } else {
+                ui.showMessage("Not nice, I've unmarked this task:");
+            }
+            ui.showMessage(String.valueOf(task));
+        } catch (ChatException e) {
+            ui.showError(e.getMessage());
         }
-
-        task.markTask(isMarked);
-        if (isMarked) {
-            ui.showMessage("Nice, I've marked this task done:");
-        } else {
-            ui.showMessage("Not nice, I've unmarked this task:");
-        }
-        ui.showMessage(String.valueOf(task));
     }
 }

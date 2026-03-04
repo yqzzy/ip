@@ -7,29 +7,27 @@ import ui.Ui;
 import storage.Storage;
 
 public class DeleteTaskCommand extends Command {
-    private String input;
+    private int index;
+
+    public DeleteTaskCommand(int index) {
+        this.index = index;
+    }
 
     /**
      * A command that removes a task from the task list using a specific index provided by the user.
      */
-    public DeleteTaskCommand(String input) {
-        this.input = input;
-    }
-
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        String[] inputParts = input.split(" ", 2);
         try {
-            int number = Integer.parseInt(inputParts[1]);
-            if (number > taskList.getSize()) {
+            if (index < 0 || index > taskList.getSize()-1) {
                 throw new ChatException("Number must be less than or equal to " + taskList.getSize());
             }
-            Task removedTask = taskList.deleteTask(number-1);
+            Task removedTask = taskList.deleteTask(index);
             ui.showMessage("Okay, this task is removed: ");
             ui.showMessage(String.valueOf(removedTask));
             ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
         } catch (NumberFormatException e) {
-            ui.showError("Error: Enter number of the task to delete");
+            ui.showError("Error: Enter index of the task to delete");
         } catch (ChatException e) {
             ui.showError(e.getMessage());
         }

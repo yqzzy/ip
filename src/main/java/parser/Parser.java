@@ -17,22 +17,37 @@ public class Parser {
             return new PrintListCommand();
         }
         else if (input.startsWith("mark ")) {
-            return new MarkOrUnmarkTaskCommand(input.substring(5), true);
+            int index = getIndex(input);
+            return new MarkOrUnmarkTaskCommand(index, true);
         }
         else if (input.startsWith("unmark ")) {
-            return new MarkOrUnmarkTaskCommand(input.substring(7), false);
+            int index = getIndex(input);
+            return new MarkOrUnmarkTaskCommand(index, false);
         }
         else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")){
             return new AddTaskCommand(input);
         }
         else if (input.startsWith("delete")) {
-            return new DeleteTaskCommand(input);
+            int index = getIndex(input);
+            return new DeleteTaskCommand(index);
         }
         else if (input.startsWith("find")) {
             return new FindTaskCommand(input.substring(5));
         }
         else {
             throw new ChatException("Invalid command. Valid command starts with: bye, list, mark, unmark, todo, deadline, event, delete, find");
+        }
+    }
+
+    private int getIndex(String input) throws ChatException {
+        String[] inputParts = input.split(" ", 2);
+        if (inputParts.length < 2 || inputParts[1].trim().isEmpty()) {
+            throw new ChatException("Please specify a task number (e.g., mark 1).");
+        }
+        try {
+            return Integer.parseInt(inputParts[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new ChatException("Enter index of the task to mark or unmark");
         }
     }
 

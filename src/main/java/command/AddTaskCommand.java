@@ -58,7 +58,7 @@ public class AddTaskCommand extends Command {
                 LocalDate from = LocalDate.parse(subSubParts[1]);
                 newTask = new Event(description, to, from);
             } catch (DateTimeParseException e) {
-                throw new ChatException("Dates must be in YYYY-MM-DD format (e.g., 2026-02-25).");
+                throw new ChatException("Dates must be in YYYY-MM-DD format (e.g. 2026-02-25).");
             }
             break;
         }
