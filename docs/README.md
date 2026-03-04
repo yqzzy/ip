@@ -12,7 +12,7 @@ Getting Started
 
 3.  Open your terminal or command prompt.
 
-4.  Run the application using: `java -jar Chat.jar`
+4.  Run the application using: `java -jar ip.jar`
 
 * * * * *
 
@@ -35,11 +35,11 @@ CHAT supports three types of tasks. When you add a task, it will confirm the add
 
     -   **Example**: `deadline submit report /by tonight`
 
--   **Event**: A task that starts and ends at specific times.
+-   **Event**: A task that starts and ends at specific date format in YYYY-MM-DD
 
     -   **Format**: `event <description> /from <start> /to <end>`
 
-    -   **Example**: `event team meeting /from 2pm /to 4pm`
+    -   **Example**: `event camp /from 2026-03-04 /to 2026-03-05`
 
 ### 2\. Viewing the Task List
 
@@ -57,13 +57,11 @@ You can view all the tasks currently stored in your list, including their type i
 
 ### 3\. Managing Completion Status
 
-Mark tasks as done or unmark them if they need to be revisited.
+Mark a task as done or unmark it using its index number from the `list` command.
 
--   **Mark as Done**: `mark <description>`
+-   **Mark as Done**: `mark <index_number>`
 
--   **Unmark**: `unmark <description>`
-
--   **Note**: CHAT searches for the task by its description to update it.
+-   **Unmark**: `unmark <index_number>`
 
 ### 4\. Deleting Tasks
 
